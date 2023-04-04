@@ -1,6 +1,6 @@
-import { InputWrapperStyled } from "./inputs.styled";
+import { InputWrapperStyled, WarningStyled } from "./inputs.styled";
 import { IconContext, IconProps } from "@phosphor-icons/react";
-import React, { useState, FocusEvent, useEffect } from "react";
+import React, { useState, FocusEvent, useEffect, InvalidEvent } from "react";
 import * as regex from "../../constants/regex"
 import * as msg from "../../constants/inputErrorMessages";
 
@@ -8,7 +8,7 @@ type SetState = React.Dispatch<React.SetStateAction<any>>;
 interface TextInputType {
   icon: React.ReactElement<IconProps>
   type: 'email' | 'text' | 'number' | 'date' | 'password'
-  placeholder: string
+  placeholder?: string
   label: string
   characters?: {min: number, max: number}
   getValue: [SetState, any, string] | SetState
@@ -34,7 +34,11 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
       getValue(value)
     }
   },[value])
-
+  function handleOnFocus(e: FocusEvent<HTMLInputElement>) {
+    if(type === 'date') {
+      e.currentTarget.showPicker()
+    }
+  }
   function handleSetValue(e:FocusEvent<HTMLInputElement>) {
     const value = (
         type === 'email' 
@@ -45,8 +49,14 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
     if(typeOfRegex.test(value)) {
       if(characters !== undefined) {
         if(value.length >= characters.min) {
-          setValue(value)
-          setWarning(false)
+          if(value.length > characters.max) {
+            const newValue = value.toString().slice(0, characters.max)
+            e.currentTarget.value = newValue
+            setValue(newValue)
+          }else {
+            setValue(value)
+            setWarning(false)
+          }
         } else {
           setWarning(true)
         }
@@ -56,32 +66,44 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
       }
     } else {
       setWarning(true)
-      console.log('não passou na regex')
+      console.log('não passou na regex: ' + value)
     }
   }
-  function setErrorMessage(e: React.FormEvent<HTMLInputElement>) {
-    e.currentTarget.setCustomValidity(msg[type as keyof typeof msg])
+  function setErrorMessage(e:InvalidEvent<HTMLInputElement>) {
+    if (typeOfRegex.test(e.currentTarget.value)) {
+      e.currentTarget.setCustomValidity('')
+    } else {
+      e.currentTarget.setCustomValidity(msg[type as keyof typeof msg])
+    }
   }
   return (
-    <InputWrapperStyled warning={warning}>
-      <IconContext.Provider value={{
-        color: 'currentColor',
-        size: 25,
-        weight: "regular"
-      }}
-      >
-        {icon}
-      </IconContext.Provider>
+    <div>
+      <InputWrapperStyled warning={warning}>
+        <IconContext.Provider value={{
+          color: 'currentColor',
+          size: 25,
+          weight: "regular"
+        }}
+        >
+          {icon}
+        </IconContext.Provider>
 
-      <label>{label}</label>
-      <input 
-        onBlur={handleSetValue}
-        onInvalid={setErrorMessage}
-        placeholder={placeholder}
-        type={type}
-        maxLength={characters?.max}
-        required={requered}
-      />
-    </InputWrapperStyled>
+        <label>{label}</label>
+        <input 
+          onBlur={handleSetValue}
+          onChange={setErrorMessage}
+          onFocus={handleOnFocus}
+          placeholder={placeholder}
+          maxLength={characters?.max}
+          required={requered}
+          type={type}
+          step='0.01'
+        />
+      </InputWrapperStyled>
+      <WarningStyled warning={warning} >
+        {msg[type as keyof typeof msg]}
+      </WarningStyled>
+    </div>
+
   )
 }

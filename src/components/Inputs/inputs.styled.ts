@@ -74,6 +74,7 @@ export const InputWrapperStyled = styled.div<InputType>`
     font-weight: 400;
     font-size: 1rem;
     line-height: 19px;
+    letter-spacing: 0.18em;
     color: ${(props) => props.warning ? `${colors.red}` : `${colors.white}`};
 
     &::placeholder {
@@ -81,10 +82,38 @@ export const InputWrapperStyled = styled.div<InputType>`
       font-family: ${font.default};
       font-weight: 400;
       font-size: 1rem;
+      letter-spacing: 0.18em;
       line-height: 19px;
     }
     &:focus{
       color: ${colors.white};
     }
   }
+
+  & input[type=date] {
+    ::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+    ::-webkit-inner-spin-button{
+      display: none;
+    }
+  }
+  & input[type=number] {
+    ::-webkit-inner-spin-button{
+      opacity: 0;
+    }
+  }
+`
+interface WarningType {
+  warning: boolean
+}
+export const WarningStyled = styled.span<WarningType>`
+  width: 100%;
+  visibility: ${props => props.warning ? 'visible' : 'hidden'};
+
+  color: ${colors.red};
+  font-family: ${font.default};
+  font-size: 0.625rem;
+  font-weight: 400;
+  transition: all 0.1s ease-in;
 `
