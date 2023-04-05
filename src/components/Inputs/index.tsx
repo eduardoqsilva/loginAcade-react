@@ -1,6 +1,6 @@
-import { InputWrapperStyled, WarningStyled } from "./inputs.styled";
+import { DropdownStyled, InputWrapperStyled, WarningStyled } from "./inputs.styled";
 import { IconContext, IconProps } from "@phosphor-icons/react";
-import React, { useState, FocusEvent, useEffect, InvalidEvent } from "react";
+import React, { useState, FocusEvent, useEffect, InvalidEvent, FormEventHandler } from "react";
 import * as regex from "../../constants/regex"
 import * as msg from "../../constants/inputErrorMessages";
 
@@ -13,9 +13,10 @@ interface TextInputType {
   characters?: {min: number, max: number}
   getValue: [SetState, any, string] | SetState
   requered?: boolean
+  replace?: boolean;
 }
 
-export function Input({ icon, type, placeholder, label, characters, getValue, requered}: TextInputType) {
+export function Input({ icon, type, placeholder, label, characters, getValue, requered, replace}: TextInputType) {
 
   const [warning, setWarning] = useState(false)
   const [value, setValue] = useState('')
@@ -40,21 +41,24 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
     }
   }
   function handleSetValue(e:FocusEvent<HTMLInputElement>) {
-    const value = (
+    const valueTarget = (
         type === 'email' 
         ?e.currentTarget.value.trim().toLowerCase()
         : e.currentTarget.value.trim()
     )
+    if(replace) {
+      
+    }
 
-    if(typeOfRegex.test(value)) {
+    if(typeOfRegex.test(valueTarget)) {
       if(characters !== undefined) {
-        if(value.length >= characters.min) {
-          if(value.length > characters.max) {
-            const newValue = value.toString().slice(0, characters.max)
+        if(valueTarget.length >= characters.min) {
+          if(valueTarget.length > characters.max) {
+            const newValue = valueTarget.toString().slice(0, characters.max)
             e.currentTarget.value = newValue
             setValue(newValue)
           }else {
-            setValue(value)
+            setValue(valueTarget)
             setWarning(false)
           }
         } else {
@@ -62,7 +66,7 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
         }
       } else {
         setWarning(false)
-        setValue(value)
+        setValue(valueTarget)
       }
     } else {
       setWarning(true)
@@ -105,5 +109,58 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
       </WarningStyled>
     </div>
 
+  )
+}
+
+interface DropdownInputType {
+  icon: React.ReactElement<IconProps>
+  label: string
+  getValue: [SetState, any, string] | SetState
+  requered?: boolean
+  itens: string[]
+}
+
+export function Dropdown({icon, label, getValue, requered, itens}:DropdownInputType) {
+  const [warning, setWarning] = useState(false)
+
+  function handleSetValue(e:React.ChangeEvent<HTMLSelectElement>) {
+    const targetValue = e.currentTarget.value
+    if(targetValue === ''){
+      setWarning(true)
+      e.currentTarget.setCustomValidity('Escolha uma opção')
+    } else {
+      setWarning(false)
+      if(Array.isArray(getValue)){
+        e.currentTarget.setCustomValidity('')
+        const [setV, valueOut, key] = getValue
+        setV({
+          ...valueOut,
+          [key]: targetValue
+        })
+      }
+    }
+  }
+
+  return (
+    <div>
+      <DropdownStyled warning={warning}>
+      <IconContext.Provider value={{
+          color: 'currentColor',
+          size: 25,
+          weight: "regular"
+        }}
+        >
+          {icon}
+      </IconContext.Provider>
+
+        <label>{label}</label>
+        <select name="sexo" required={requered} onBlur={handleSetValue}>
+            <option value="">--</option>
+            {itens.map((i, id) => {
+              return <option key={id} value={i}>{i}</option>
+            })}
+        </select>
+      </DropdownStyled>
+    </div>
   )
 }

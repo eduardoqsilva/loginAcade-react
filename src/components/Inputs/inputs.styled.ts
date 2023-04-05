@@ -14,6 +14,9 @@ const shake = keyframes`
 interface InputType {
   warning: boolean
 }
+interface WarningType {
+  warning: boolean
+}
 
 export const InputWrapperStyled = styled.div<InputType>`
   
@@ -104,9 +107,69 @@ export const InputWrapperStyled = styled.div<InputType>`
     }
   }
 `
-interface WarningType {
-  warning: boolean
-}
+
+export const DropdownStyled = styled.div<InputType>`
+  width: 100%;
+  height: 53px;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  
+  background-color: ${colors.gray2};
+  color: ${colors.gray4};
+  padding: 0 1rem;
+  border-radius: 5px;
+  transition: all .1s ease-in;
+  margin-top: 18px;
+
+  font-family: ${font.default};
+  
+  position: relative;
+
+  ${(props) => props.warning 
+    ? css`border: 2px solid ${colors.red_dark};
+          color: ${colors.red};
+          animation: ${shake} 0.1s 4 ease-in;`
+    : css`border: 2px solid transparent;`
+  }
+
+  &:focus-within {
+    border: 2px solid ${colors.orange_light};
+    color: ${colors.white};
+  }
+
+  & label {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.625rem;
+    line-height: 12px;
+    letter-spacing: 0.18em;
+    color: ${colors.gray7}
+  }
+
+  & select {
+    width: 100%;
+    height: 100%;
+    background: ${colors.gray2};
+    color: ${colors.gray5};
+    border: none;
+    outline: none;
+    font-family: ${font.default};
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.18em;
+  }
+
+`
 export const WarningStyled = styled.span<WarningType>`
   width: 100%;
   visibility: ${props => props.warning ? 'visible' : 'hidden'};
