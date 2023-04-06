@@ -1,8 +1,9 @@
 import { At, Barbell, Cake, Calendar, GenderIntersex, Lock, MaskHappy, Ruler, User } from "@phosphor-icons/react"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "../../components/Buttons"
 import { Dropdown, Input } from "../../components/Inputs"
 import { Logo } from "../../components/Logo"
+import { SuccessIndicator } from "../../components/SuccessIndicator"
 import { ContainerLoginStyled, FormStyled } from "./login.styled"
 
 export function Login() {
@@ -15,14 +16,22 @@ export function Login() {
     weight: '',
     sex: ''
   })
+  const [indicator, setIndicator] = useState([true, false])
+
   useEffect(() => {
     console.log(values)
   },[values])
 
+  function submit(e:React.FormEvent) {
+    e.preventDefault()
+    setIndicator([true, true])
+  }
+
   return (
     <ContainerLoginStyled>
+      <SuccessIndicator success={indicator[0]} show={indicator[1]}/>
       <Logo width={100}/>
-      <FormStyled action="">
+      <FormStyled onSubmit={submit}>
         <h1>Cadastro</h1>
         <div className="form">
           <Input
