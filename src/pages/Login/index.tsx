@@ -1,4 +1,4 @@
-import { At, Barbell, Cake, Calendar, GenderIntersex, Lock, MaskHappy, Ruler, User } from "@phosphor-icons/react"
+import { At, Barbell, Cake, GenderIntersex, Lock, Ruler, User } from "@phosphor-icons/react"
 import React, { useEffect, useState } from "react"
 import { Button } from "../../components/Buttons"
 import { Dropdown, Input } from "../../components/Inputs"
