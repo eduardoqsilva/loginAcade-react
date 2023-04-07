@@ -13,7 +13,7 @@ interface TextInputType {
   characters?: {min: number, max: number}
   getValue: [SetState, any, string] | SetState
   requered?: boolean
-  replace?: boolean;
+  replace?: [string, string];
 }
 
 export function Input({ icon, type, placeholder, label, characters, getValue, requered, replace}: TextInputType) {
@@ -41,13 +41,14 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
     }
   }
   function handleSetValue(e:FocusEvent<HTMLInputElement>) {
-    const valueTarget = (
+    let valueTarget = (
         type === 'email' 
         ?e.currentTarget.value.trim().toLowerCase()
         : e.currentTarget.value.trim()
     )
     if(replace) {
-      
+      valueTarget = valueTarget.replace(replace[0], replace[1])
+      console.log('trocou: ' + valueTarget)
     }
 
     if(typeOfRegex.test(valueTarget)) {
