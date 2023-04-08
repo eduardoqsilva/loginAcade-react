@@ -13,6 +13,7 @@ const shake = keyframes`
 
 interface InputType {
   warning: boolean
+  variation: '01' | '02'
 }
 interface WarningType {
   warning: boolean
@@ -28,10 +29,10 @@ export const InputWrapperStyled = styled.div<InputType>`
   align-items: center;
   gap: 1rem;
   
-  background-color: ${colors.gray2};
+  background-color: ${props => props.variation === '01' ? `${colors.gray2}` : 'transparent'};
   color: ${colors.gray4};
   padding: 0 1rem;
-  border-radius: 5px;
+  border-radius: ${props => props.variation === '01' ? '5px' : '0px'};
   transition: all .1s ease-in;
   margin-top: 18px;
 
@@ -40,21 +41,30 @@ export const InputWrapperStyled = styled.div<InputType>`
   position: relative;
 
   ${(props) => props.warning 
-    ? css`border: 2px solid ${colors.red_dark};
+    ? css`${props.variation === '01' 
+        ? `border: 2px solid ${colors.red_dark};`
+        : `border-bottom: 2px solid ${colors.red_dark};`};
           color: ${colors.red};
           animation: ${shake} 0.1s 4 ease-in;`
-    : css`border: 2px solid transparent;`
+    : `${props.variation === '01' ? 
+          `border: 2px solid transparent` :
+          `border: 2px solid transparent;
+           border-bottom: 2px solid #2F3030;`
+        }`
   }
 
   &:focus-within {
-    border: 2px solid ${colors.orange_light};
+    ${props => props.variation === '01' 
+      ? `border: 2px solid ${colors.orange_light};`
+      : `border-bottom: 2px solid ${colors.orange_light};`
+    }
     color: ${colors.white};
   }
 
   & label {
     position: absolute;
-    top: -18px;
-    left: 0;
+    top: ${props => props.variation === '01' ? '-18px' : '0'};
+    left: ${props => props.variation === '01' ? '0' : '3.4rem'};
     
     font-style: normal;
     font-weight: 400;
@@ -68,7 +78,7 @@ export const InputWrapperStyled = styled.div<InputType>`
     height: 100%;
     width: 100%;
 
-    background-color: ${colors.gray2};
+    background-color: ${props => props.variation === '01' ? `${colors.gray2}` : 'transparent'};
     border: none;
     outline: none;
     caret-color: ${colors.white};
@@ -108,7 +118,7 @@ export const InputWrapperStyled = styled.div<InputType>`
   }
 `
 
-export const DropdownStyled = styled.div<InputType>`
+export const DropdownStyled = styled.div<WarningType>`
   width: 100%;
   height: 53px;
   

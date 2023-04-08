@@ -13,10 +13,11 @@ interface TextInputType {
   characters?: {min: number, max: number}
   getValue: [SetState, any, string] | SetState
   requered?: boolean
-  replace?: [string, string];
+  replace?: [string, string]
+  variation?: '01' | '02'
 }
 
-export function Input({ icon, type, placeholder, label, characters, getValue, requered, replace}: TextInputType) {
+export function Input({ icon, type, placeholder, label, characters, getValue, requered, replace, variation = '01'}: TextInputType) {
 
   const [warning, setWarning] = useState(false)
   const [value, setValue] = useState('')
@@ -83,7 +84,7 @@ export function Input({ icon, type, placeholder, label, characters, getValue, re
   }
   return (
     <div>
-      <InputWrapperStyled warning={warning}>
+      <InputWrapperStyled variation={variation} warning={warning}>
         <IconContext.Provider value={{
           color: 'currentColor',
           size: 25,
