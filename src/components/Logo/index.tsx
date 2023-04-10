@@ -1,14 +1,14 @@
 import { LogoStyled } from "./logo.styled";
 
 interface LogoType {
-  color?: '1' | '2';
+  color?: '1' | '2'
   variation?: 'text' | 'noText'
-  width?: number;
+  width?: number
 }
 
-export function Logo({color = '1', variation ='text', width = 50}:LogoType) {
+export function Logo({color = '1', variation ='text', width = 50 }:LogoType) {
   return (
-    <LogoStyled color={color} width={width} >
+    <LogoStyled color={color} width={width}>
       { variation === 'text' ?
         <svg className="icon" width="99" height="127" viewBox="0 0 99 127" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M27.72 17.82C25.5312 17.82 23.76 19.5912 23.76 21.78V77.22C23.76 79.4088 25.5312 81.18 27.72 81.18H31.68C33.8688 81.18 35.64 79.4088 35.64 77.22V55.44H63.36V77.22C63.36 79.4088 65.1312 81.18 67.32 81.18H71.28C73.4688 81.18 75.24 79.4088 75.24 77.22V21.78C75.24 19.5912 73.4688 17.82 71.28 17.82H67.32C65.1312 17.82 63.36 19.5912 63.36 21.78V43.56H35.64V21.78C35.64 19.5912 33.8688 17.82 31.68 17.82H27.72ZM13.86 25.74C11.6712 25.74 9.9 27.5112 9.9 29.7V69.3C9.9 71.4888 11.6712 73.26 13.86 73.26H19.8V25.74H13.86ZM79.2 25.74V73.26H85.14C87.3288 73.26 89.1 71.4888 89.1 69.3V29.7C89.1 27.5112 87.3288 25.74 85.14 25.74H79.2ZM1.98 43.56C0.889454 43.56 0 44.4495 0 45.54V53.46C0 54.5505 0.889454 55.44 1.98 55.44H5.94V43.56H1.98ZM93.06 43.56V55.44H97.02C98.1105 55.44 99 54.5505 99 53.46V45.54C99 44.4495 98.1105 43.56 97.02 43.56H93.06Z" fill="currentColor"/>
