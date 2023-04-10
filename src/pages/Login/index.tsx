@@ -1,16 +1,18 @@
+import { FormEvent, useRef, useState } from "react";
 import { At, LockKey } from "@phosphor-icons/react";
-import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Buttons";
 import { Input } from "../../components/Inputs";
 import { Loading } from "../../components/Loading";
 import { Logo } from "../../components/Logo";
+import { Splash } from "../../components/Splash";
 import { BackgroundStyled, ContainerStyled, FormStyled, WrapperLoginStyled } from "./login.styled";
 
 export function Login() {
 
   const navigate = useNavigate()
   const [load, setLoad] = useState(false)
+  const refLogo = useRef<HTMLDivElement>(null);
   const [values, setValues] = useState({
     email: '',
     password: ''
@@ -28,11 +30,14 @@ export function Login() {
 
   return (
     <>
-      <Loading loading={load}/>
+      <Splash refL={refLogo}/>
       <BackgroundStyled />
+      <Loading load={load}/>
       <ContainerStyled>
         <WrapperLoginStyled>
-          <Logo width={130}/>
+          <div ref={refLogo}>
+            <Logo width={130}/>
+          </div>
           <FormStyled onSubmit={handleOnSubmit}>
             <h2>Login</h2>
             <Input 

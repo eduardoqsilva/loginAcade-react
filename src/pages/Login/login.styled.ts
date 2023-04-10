@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import background from "../../assets/imgs/login/background.jpg"
+import background from "../../assets/imgs/login/background.webp"
 import { colors, font } from "../../styles/variables";
 
 export const BackgroundStyled = styled.div`
