@@ -2,12 +2,12 @@ import { Logo } from "../Logo";
 import { LoadingWrapperStyled } from "./loading.styled";
 
 interface LoadingType {
-  loading: boolean
+  load: boolean
 }
 
-export function Loading({ loading }:LoadingType) {
+export function Loading({ load = false }:LoadingType) {
   return (
-    <LoadingWrapperStyled loading={loading}>
+    <LoadingWrapperStyled load={load}>
       <Logo 
        color="1"
        variation="noText"

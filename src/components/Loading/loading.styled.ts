@@ -11,7 +11,7 @@ const Loading = keyframes`
   }
 `
 interface loadType {
-  loading: boolean
+  load: boolean
 }
 
 export const LoadingWrapperStyled = styled.div<loadType>`
@@ -24,7 +24,7 @@ export const LoadingWrapperStyled = styled.div<loadType>`
   height: 100vh;
   background-color: ${colors.gray1};
 
-  display: ${props => props.loading ? 'flex' : 'none'};
+  display: ${props => props.load ? 'flex' : 'none'};
   align-items: center;
   justify-content: center;
 
