@@ -29,7 +29,7 @@ export const SplashWrapper = styled.div<SplashType>`
   left: 0;
   z-index: 99;
 
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(235, 94, 40, 0.75) 100%), url(${splash});
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(235, 94, 40, 0.75) 100%), url(${splash}) !important;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
