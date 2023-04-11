@@ -18,4 +18,13 @@ export const LogoStyled = styled.div<LogoTypes>`
       : `${colors.white}`
     };
   }
+
+  @media (max-height: 670px) {
+    width: ${props => props.width - 20}px;
+    height: ${props => props.width - 20}px;
+  }
+  @media (max-width: 370px) {
+    width: ${props => props.width - 20}px;
+    height: ${props => props.width - 20}px;
+  }
 `
