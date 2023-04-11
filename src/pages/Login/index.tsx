@@ -1,6 +1,6 @@
 import { FormEvent, useRef, useState } from "react";
 import { At, LockKey } from "@phosphor-icons/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/Buttons";
 import { Input } from "../../components/Inputs";
 import { Loading } from "../../components/Loading";
@@ -68,6 +68,7 @@ export function Login() {
               />
             </div>
           </FormStyled>
+          <h6>Ao continuar você aceita os <Link to={'/'}>termos de uso</Link></h6>
         </WrapperLoginStyled>
       </ContainerStyled>
     </>

@@ -26,7 +26,7 @@ export const ContainerStyled = styled.div`
   top: 0;
   left: 0;
   
-  padding: 1rem;
+  padding: 2rem;
 `
 export const WrapperLoginStyled = styled.header`
   width: 100%;
@@ -34,11 +34,27 @@ export const WrapperLoginStyled = styled.header`
   max-width: 400px;
   margin: auto;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr 4fr auto;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 6rem;
+  justify-items: center;
+  padding: 1rem 0;
+
+  & h6 {
+    font-family: ${font.default};
+    color: ${colors.gray6};
+    font-weight: 600;
+     a{
+        color: ${colors.orange_light};
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover {
+          color: ${colors.orange};
+        }
+     }
+  }
 `
 
 export const FormStyled = styled.form`
@@ -63,5 +79,9 @@ export const FormStyled = styled.form`
     display: flex;
     flex-direction: column;
     gap: 1.56rem;
+
+    @media (max-width: 370px) {
+      width: 250px;
+    }
   }
 `
