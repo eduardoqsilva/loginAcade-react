@@ -68,7 +68,7 @@ export function Login() {
               />
             </div>
           </FormStyled>
-          <h6>Ao continuar você aceita os <Link to={'/'}>termos de uso</Link></h6>
+          <h6>Ao continuar você aceita os <Link to={'/terms'}>termos de uso</Link></h6>
         </WrapperLoginStyled>
       </ContainerStyled>
     </>
