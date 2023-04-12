@@ -4,7 +4,7 @@ import { Button } from "../../components/Buttons"
 import { Dropdown, Input } from "../../components/Inputs"
 import { Logo } from "../../components/Logo"
 import { SuccessIndicator } from "../../components/SuccessIndicator"
-import { ContainerLoginStyled, FormStyled } from "./login.styled"
+import { ContainerLoginStyled, FormStyled } from "./register.styled"
 
 export function Register() {
   const [values, setValues] = useState({
@@ -29,7 +29,7 @@ export function Register() {
 
   return (
     <ContainerLoginStyled>
-      <SuccessIndicator success={indicator[0]} show={indicator[1]}/>
+      <SuccessIndicator indicate={indicator} redirect={'/'}/>
       <Logo width={100}/>
       <FormStyled onSubmit={submit}>
         <h1>Cadastro</h1>
