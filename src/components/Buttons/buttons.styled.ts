@@ -19,6 +19,7 @@ export const ButtonStyled = styled.button<ButtonType>`
   font-weight: 500;
   letter-spacing: 0.18em;
   color: ${colors.white};
+  cursor: pointer;
 
   ${props => props.variation === 'secundary'
     ? css`
@@ -28,7 +29,30 @@ export const ButtonStyled = styled.button<ButtonType>`
     ` 
     : ''}
 
-  :active {
+  &:not(:disabled):hover {
+    transform: scale(1.03);
+  }
+  &:not(:disabled):active {
     transform: scale(0.95);
+    ${props => props.variation === 'secundary' 
+      ? css`
+        background-color: transparent;
+        border: 2px solid ${colors.orange_light};
+        color: ${colors.orange_light};
+        `
+      : css`background-color: ${colors.orange_light}`
+    }
+  }
+  &:disabled {
+    background-color: ${colors.orange_dark};
+    cursor: not-allowed;
+    ${props => props.variation === 'secundary' 
+      ? css`
+        background-color: transparent;
+        border: 2px solid ${colors.orange_dark};
+        color: ${colors.orange_dark};
+      `
+      : ''
+    }
   }
 `
