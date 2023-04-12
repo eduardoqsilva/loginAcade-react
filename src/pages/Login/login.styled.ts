@@ -1,7 +1,19 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import background from "../../assets/imgs/login/background.webp"
 import { colors, font } from "../../styles/variables";
+
+const drop = keyframes`
+  0%{
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+`
+
 
 export const BackgroundStyled = styled.div`
   width: 100vw;
@@ -59,6 +71,8 @@ export const WrapperLoginStyled = styled.header`
 
 export const FormStyled = styled.form`
   width: 100%;
+  animation: ${drop} .2s ease-in both;
+  animation-delay: 1.8s;
 
   & h2 {
     color: ${colors.gray7};
