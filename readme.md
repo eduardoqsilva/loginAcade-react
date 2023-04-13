@@ -1,6 +1,6 @@
 # Acade cadastro
 
-Um formulário web para treinar a implementação de validações de inputs e formulário, feito com react, TypeScript e styled-components.
+Um app web para treinar a implementação de validações de inputs e formulário, e também animações, feito com react, TypeScript e styled-components.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
